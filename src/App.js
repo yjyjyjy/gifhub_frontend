@@ -227,7 +227,7 @@ const App = () => {
       console.log('Fetching GIF list...');
       getGifList()
     }
-  }, [walletAddress, getGifList]);
+  }, [walletAddress]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">
