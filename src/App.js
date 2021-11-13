@@ -233,9 +233,10 @@ const App = () => {
     <div className="App">
       <div className={walletAddress ? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="header">🖼 GIF Portal</p>
+          <p className="header">🦁 Leo Leo Land</p>
           <p className="sub-text">
-            View your GIF collection in the metaverse ✨
+            All the classic gifs of Leo ✨
+            Add your own gif by connecting your phatom. Make it yours too!
           </p>
           {!walletAddress ? renderNotConnectedContainer() : renderConnectedContainer()}
         </div>
