@@ -8,7 +8,6 @@ import {
 
 import idl from './idl.json';
 import kp from './keypair.json'
-import background from './assets/unicorn.jpeg'
 
 // SystemProgram is a reference to the Solana runtime!
 const { SystemProgram, Keypair } = web3;
