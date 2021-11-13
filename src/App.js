@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
-import { Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import {
   Program, Provider, web3
 } from '@project-serum/anchor';
@@ -10,7 +10,7 @@ import idl from './idl.json';
 import kp from './keypair.json'
 
 // SystemProgram is a reference to the Solana runtime!
-const { SystemProgram, Keypair } = web3;
+const { SystemProgram } = web3;
 
 // Create a keypair for the account that will hold the GIF data.
 const arr = Object.values(kp._keypair.secretKey)
@@ -50,16 +50,16 @@ const App = () => {
       if (solana) {
         if (solana.isPhantom) {
           console.log('Phantom wallet found!');
-        /*
-         * The solana object gives us a function that will allow us to connect
-         * directly with the user's wallet!
-         */
-        const response = await solana.connect({ onlyIfTrusted: true });
-        console.log(
-          'Connected with Public Key:',
-          response.publicKey.toString()
-        );
-        setWalletAddress(response.publicKey.toString());
+          /*
+           * The solana object gives us a function that will allow us to connect
+           * directly with the user's wallet!
+           */
+          const response = await solana.connect({ onlyIfTrusted: true });
+          console.log(
+            'Connected with Public Key:',
+            response.publicKey.toString()
+          );
+          setWalletAddress(response.publicKey.toString());
         }
       } else {
         alert('Solana object not found! Get a Phantom Wallet 👻');
@@ -131,7 +131,7 @@ const App = () => {
       console.log("Created a new BaseAccount w/ address:", baseAccount.publicKey.toString())
       await getGifList();
 
-    } catch(error) {
+    } catch (error) {
       console.log("Error creating BaseAccount account:", error)
     }
   }
@@ -148,7 +148,7 @@ const App = () => {
       Connect to Wallet
     </button>
   );
-    
+
   const renderConnectedContainer = () => {
     // If we hit this, it means the program account hasn't be initialized.
     if (gifList === null) {
@@ -159,11 +159,11 @@ const App = () => {
           </button>
         </div>
       )
-    } 
+    }
     // Otherwise, we're good! Account exists. User can submit GIFs.
     else {
       console.log(gifList)
-      return(
+      return (
         <div className="connected-container">
           <form
             onSubmit={(event) => {
@@ -185,8 +185,8 @@ const App = () => {
             {/* We use index as the key instead, also, the src is now item.gifLink */}
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
-                <img src={item.gifLink} />
-                <text>Uploader: <a href={'https://explorer.solana.com/address/'+item.userAddress.toString()+'?cluster=devnet'}>{item.userAddress.toString()}</a></text>
+                <img src={item.gifLink} alt="gif" />
+                <text>Uploader: <a href={'https://explorer.solana.com/address/' + item.userAddress.toString() + '?cluster=devnet'}>{item.userAddress.toString()}</a></text>
               </div>
             ))}
           </div>
@@ -207,12 +207,12 @@ const App = () => {
     return () => window.removeEventListener('load', onLoad);
   }, []);
 
-  const getGifList = async() => {
+  const getGifList = async () => {
     try {
       const provider = getProvider();
       const program = new Program(idl, programID, provider);
-      const account = await program.account.baseAccount.fetch(baseAccount.publicKey); 
-      
+      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+
       console.log("Got the account", account)
       setGifList(account.gifList)
 
@@ -227,7 +227,7 @@ const App = () => {
       console.log('Fetching GIF list...');
       getGifList()
     }
-  }, [walletAddress]);
+  }, [walletAddress, getGifList]);
 
   return (
     <div className="App">
