@@ -162,6 +162,7 @@ const App = () => {
     } 
     // Otherwise, we're good! Account exists. User can submit GIFs.
     else {
+      console.log(gifList)
       return(
         <div className="connected-container">
           <form
@@ -185,6 +186,7 @@ const App = () => {
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
                 <img src={item.gifLink} />
+                <text>Uploader: <a href={'https://explorer.solana.com/address/'+item.userAddress.toString()+'?cluster=devnet'}>{item.userAddress.toString()}</a></text>
               </div>
             ))}
           </div>
@@ -208,9 +210,7 @@ const App = () => {
   const getGifList = async() => {
     try {
       const provider = getProvider();
-      console.log('💎💎💎💎💎',  provider)
       const program = new Program(idl, programID, provider);
-      console.log('🔥🔥🔥🔥🔥',  program)
       const account = await program.account.baseAccount.fetch(baseAccount.publicKey); 
       
       console.log("Got the account", account)
